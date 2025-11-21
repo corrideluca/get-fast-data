@@ -92,24 +92,7 @@ async function requestClipboard(): Promise<PermissionsData['clipboard']> {
   }
 
   try {
-    // Use Permissions API to request clipboard-read permission
-    if ('permissions' in navigator) {
-      const permissionStatus = await navigator.permissions.query({ name: 'clipboard-read' as PermissionName });
-
-      if (permissionStatus.state === 'granted' || permissionStatus.state === 'prompt') {
-        // Try to read to trigger permission prompt
-        try {
-          await navigator.clipboard.readText();
-          return { granted: true };
-        } catch {
-          return { granted: false, error: 'Clipboard permission denied' };
-        }
-      }
-
-      return { granted: permissionStatus.state === 'granted', error: permissionStatus.state };
-    }
-
-    // Fallback: try to read directly
+    // Try to read from clipboard to trigger permission prompt
     await navigator.clipboard.readText();
     return { granted: true };
   } catch (error: any) {
