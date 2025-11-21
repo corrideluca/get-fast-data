@@ -1,26 +1,45 @@
 @import "tailwindcss";
 
 :root {
+  /* McDonald's Color Palette */
+  --mcdonalds-red: #DA291C;
+  --mcdonalds-yellow: #FFC72C;
+  --mcdonalds-dark-red: #C4161C;
+  --mcdonalds-dark-yellow: #FFB81C;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #292929;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-mcdonalds-red: var(--mcdonalds-red);
+  --color-mcdonalds-yellow: var(--mcdonalds-yellow);
+  --color-mcdonalds-dark-red: var(--mcdonalds-dark-red);
+  --color-mcdonalds-dark-yellow: var(--mcdonalds-dark-yellow);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
 }

@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(cuid())
+  ipAddress       String
+  phoneNumber     String?  // WhatsApp number they provide
+
+  // Browser & Device Info
+  userAgent       String?
+  browser         String?
+  browserVersion  String?
+  device          String?
+  os              String?
+  platform        String?
+
+  // Location Data
+  country         String?
+  city            String?
+  region          String?
+  timezone        String?
+  latitude        Float?
+  longitude       Float?
+
+  // Screen & Window Info
+  screenWidth     Int?
+  screenHeight    Int?
+  windowWidth     Int?
+  windowHeight    Int?
+  colorDepth      Int?
+
+  // Visit Tracking
+  visitCount      Int      @default(1)
+  firstVisit      DateTime @default(now())
+  lastVisit       DateTime @default(now())
+
+  // Additional Browser Info
+  language        String?
+  cookiesEnabled  Boolean?
+  referrer        String?
+
+  // Permissions Granted
+  geolocationPermission     Boolean @default(false)
+  notificationPermission    Boolean @default(false)
+  clipboardPermission       Boolean @default(false)
+  fileSystemPermission      Boolean @default(false)
+
+  // Precise Geolocation (from GPS/WiFi)
+  preciseLatitude           Float?
+  preciseLongitude          Float?
+  geolocationAccuracy       Float?
+  altitude                  Float?
+  heading                   Float?
+  speed                     Float?
+
+  // WebRTC IPs
+  webrtcIPs                 String?  // JSON array of additional IPs
+
+  // Raw Permissions Data (all permission info as text)
+  permissionsRawData        String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([ipAddress])
+  @@index([phoneNumber])
+}
